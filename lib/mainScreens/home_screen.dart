@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../authentication/auth_screen.dart';
 import '../global/global.dart';
+
+import '../authentication/auth_screen.dart';
+import '../widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,22 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
           sharedPreferences!.getString('name')!,
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Logout'),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.amber,
-          ),
-          onPressed: () {
-            firebaseAuth.signOut().then((value) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (c) => const AuthScreen()));
-            });
-          },
-        ),
-      ),
+      drawer: MyDrawer(),
+      body: Center(),
     );
   }
 }
