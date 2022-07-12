@@ -7,11 +7,9 @@ import '../global/global.dart';
 import '../models/items.dart';
 import '../models/menus.dart';
 import '../widgets/items_design.dart';
-import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
-import '../widgets/sellers_design.dart';
-import '../authentication/auth_screen.dart';
 import '../widgets/text_widget.dart';
+import '../widgets/app_bar.dart';
 
 class ItemsScreen extends StatefulWidget {
   final Menus? model;
@@ -26,67 +24,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.cyan,
-                Colors.amber,
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-        ),
-        title: const Text(
-          'iFood',
-          style: TextStyle(
-            fontSize: 30,
-            fontFamily: 'Lobster',
-          ),
-        ),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart,
-              color: Colors.cyan,
-            ),
-            onPressed: () {
-              // send user to cart screen
-            },
-          ),
-          Positioned(
-            child: Stack(
-              children: [
-                const Icon(
-                  Icons.brightness_1,
-                  size: 20.0,
-                  color: Colors.green,
-                ),
-                Positioned(
-                  top: 3,
-                  right: 4,
-                  child: Center(
-                    child: Text(
-                      '0',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      appBar: MyAppBar(),
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
