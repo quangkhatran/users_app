@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:users_app/widgets/info_design.dart';
+import 'package:users_app/widgets/sellers_design.dart';
 import 'package:users_app/widgets/progress_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -139,12 +139,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             snapshot.data!.docs[index].data()!
                                 as Map<String, dynamic>);
                         // design for display sellers-cafes-restaurants
-                        return InfoDesignWidget(
+                        return SellersDesignWidget(
                           model: sModel,
                           context: context,
                         );
                       },
-                      itemCount: snapshot.data!.docs.length!,
+                      itemCount: snapshot.data!.docs.length,
                     );
             },
           ),
