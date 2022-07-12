@@ -14,7 +14,9 @@ import '../authentication/auth_screen.dart';
 import '../widgets/text_widget.dart';
 
 class ItemsScreen extends StatefulWidget {
-  const ItemsScreen({Key? key}) : super(key: key);
+  final Menus? model;
+
+  ItemsScreen({this.model});
 
   @override
   State<ItemsScreen> createState() => _ItemsScreenState();
@@ -40,9 +42,9 @@ class _ItemsScreenState extends State<ItemsScreen> {
             ),
           ),
         ),
-        title: Text(
+        title: const Text(
           'iFood',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 30,
             fontFamily: 'Lobster',
           ),
@@ -51,7 +53,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.shopping_cart,
               color: Colors.cyan,
             ),
@@ -89,13 +91,16 @@ class _ItemsScreenState extends State<ItemsScreen> {
         slivers: [
           SliverPersistentHeader(
             pinned: true,
-            delegate: TextWidgetHeader(title: ''),
+            delegate: TextWidgetHeader(
+                title: 'Items of ' + widget.model!.menuTitle.toString()),
           ),
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('sellers')
-                  .doc(sharedPreferences!.getString('uid'))
+                  .doc(widget.model!.sellerUID)
                   .collection('menus')
+                  .doc(widget.model!.menuID)
+                  .collection('items')
                   .orderBy(
                     'publishedDate',
                     descending: true,

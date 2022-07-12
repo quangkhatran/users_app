@@ -68,8 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        title: Text(
-          sharedPreferences!.getString('name')!,
+        title: const Text(
+          'iFood',
+          style: TextStyle(
+            fontSize: 45,
+            fontFamily: 'Signatra',
+          ),
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,
