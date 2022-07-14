@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:users_app/splashScreen/splash_screen.dart';
 
 import '../global/global.dart';
 import './cart_item_counter.dart';
@@ -62,4 +63,19 @@ separateItemQuantities() {
   print(separateItemQuantityList);
 
   return separateItemQuantityList;
+}
+
+clearCartNow(context) {
+  sharedPreferences!.setStringList('userCart', ['garbageValue']);
+
+  List<String>? emptyList = sharedPreferences!.getStringList('userCart');
+
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(firebaseAuth.currentUser!.uid)
+      .update({'userCart': emptyList}).then((value) {
+    sharedPreferences!.setStringList('userCart', emptyList!);
+    Provider.of<CartItemCounter>(context, listen: false)
+        .displayCartListItemsNumber();
+  });
 }

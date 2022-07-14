@@ -5,12 +5,12 @@ import '../models/items.dart';
 class CartItemDesign extends StatefulWidget {
   final Items? model;
   BuildContext? context;
-  final List<int>? separateItemQuantitiesList;
+  final int? quanNumber;
 
   CartItemDesign({
     this.model,
     this.context,
-    this.separateItemQuantitiesList,
+    this.quanNumber,
   });
 
   @override
@@ -25,7 +25,7 @@ class _CartItemDesignState extends State<CartItemDesign> {
       child: Padding(
         padding: EdgeInsets.all(6.0),
         child: Container(
-          height: 165,
+          height: 100,
           width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
@@ -43,6 +43,7 @@ class _CartItemDesignState extends State<CartItemDesign> {
               // price
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     widget.model!.title!,
@@ -66,7 +67,7 @@ class _CartItemDesignState extends State<CartItemDesign> {
                         ),
                       ),
                       Text(
-                        widget.separateItemQuantitiesList.toString(),
+                        widget.quanNumber.toString(),
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 25,
