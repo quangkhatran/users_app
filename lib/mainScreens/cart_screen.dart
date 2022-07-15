@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_app/assistantMethods/total_amount.dart';
+import 'package:users_app/mainScreens/address_screen.dart';
 
 import '../models/items.dart';
 
@@ -148,7 +149,16 @@ class _CartScreenState extends State<CartScreen> {
               ),
               backgroundColor: Colors.cyan,
               icon: const Icon(Icons.navigate_next),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (c) => AddressScreen(
+                            totalAmount: totalAmount.toDouble(),
+                            sellerUID: widget.sellerUID,
+                          )),
+                );
+              },
             ),
           ),
         ],
