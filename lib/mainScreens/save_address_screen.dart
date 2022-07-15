@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:users_app/global/global.dart';
+
+import '../models/address.dart';
 
 import '../widgets/text_field.dart';
 import '../widgets/simple_app_bar.dart';
@@ -15,6 +20,7 @@ class SaveAddressScreen extends StatelessWidget {
   final _locationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   List<Placemark>? placemarks;
+  Position? position;
 
   getUserLocationAddress() async {
     LocationPermission permission;
@@ -27,11 +33,13 @@ class SaveAddressScreen extends StatelessWidget {
     } else {
       throw Exception('Error');
     }
-    Position position = await Geolocator.getCurrentPosition(
+    Position newPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
+    position = newPosition;
+
     placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
 
     Placemark pMark = placemarks![0];
 
@@ -60,6 +68,29 @@ class SaveAddressScreen extends StatelessWidget {
         icon: const Icon(Icons.save),
         onPressed: () {
           // save address info
+          if (formKey.currentState!.validate()) {
+            final model = Address(
+              name: _name.text.trim(),
+              state: _state.text.trim(),
+              fullAddress: _completeAddress.text.trim(),
+              phoneNumber: _phoneNumber.text.trim(),
+              flatNumber: _flatNumber.text.trim(),
+              city: _city.text.trim(),
+              lat: position!.latitude,
+              lng: position!.longitude,
+            ).toJson();
+
+            FirebaseFirestore.instance
+                .collection('users')
+                .doc(sharedPreferences!.getString('uid'))
+                .collection('userAddress')
+                .doc(DateTime.now().millisecondsSinceEpoch.toString())
+                .set(model)
+                .then((value) {
+              Fluttertoast.showToast(msg: 'New Address has been saved.');
+              formKey.currentState!.reset();
+            });
+          }
         },
       ),
       body: SingleChildScrollView(
