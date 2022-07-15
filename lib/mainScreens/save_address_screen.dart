@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../widgets/text_field.dart';
 import '../widgets/simple_app_bar.dart';
@@ -12,6 +14,42 @@ class SaveAddressScreen extends StatelessWidget {
   final _completeAddress = TextEditingController();
   final _locationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  List<Placemark>? placemarks;
+
+  getUserLocationAddress() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        return Future.error('Location Not Available');
+      }
+    } else {
+      throw Exception('Error');
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    Placemark pMark = placemarks![0];
+
+    String fullAddress =
+        '${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.postalCode}, ${pMark.country}';
+
+    _locationController.text = fullAddress;
+
+    _flatNumber.text =
+        '${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}';
+
+    _city.text =
+        '${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.postalCode}';
+
+    _state.text = '${pMark.country}';
+
+    _completeAddress.text = fullAddress;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +121,7 @@ class SaveAddressScreen extends StatelessWidget {
               ),
               onPressed: () {
                 // getCurrentLocationWithAddress
+                getUserLocationAddress();
               },
             ),
             Form(
