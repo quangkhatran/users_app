@@ -24,14 +24,19 @@ class SaveAddressScreen extends StatelessWidget {
 
   getUserLocationAddress() async {
     LocationPermission permission;
+
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.deniedForever) {
-        return Future.error('Location Not Available');
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
       }
-    } else {
-      throw Exception('Error');
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
     Position newPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
