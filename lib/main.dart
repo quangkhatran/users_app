@@ -7,6 +7,7 @@ import './global/global.dart';
 import './splashScreen/splash_screen.dart';
 import './assistantMethods/cart_item_counter.dart';
 import './assistantMethods/total_amount.dart';
+import './assistantMethods/address_changer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => CartItemCounter()),
         ChangeNotifierProvider(create: (context) => TotalAmount()),
+        ChangeNotifierProvider(create: (context) => AddressChanger()),
       ],
       child: MaterialApp(
         title: 'Users App',
