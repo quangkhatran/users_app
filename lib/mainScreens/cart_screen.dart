@@ -120,6 +120,7 @@ class _CartScreenState extends State<CartScreen> {
           Align(
             alignment: Alignment.bottomLeft,
             child: FloatingActionButton.extended(
+              heroTag: 'btn1',
               label: const Text(
                 'Clear Cart',
                 style: TextStyle(
@@ -141,6 +142,7 @@ class _CartScreenState extends State<CartScreen> {
           Align(
             alignment: Alignment.bottomLeft,
             child: FloatingActionButton.extended(
+              heroTag: 'btn2',
               label: const Text(
                 'Check Out',
                 style: TextStyle(
@@ -193,6 +195,8 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
           ),
+
+          // display cart items with quantity number
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('items')

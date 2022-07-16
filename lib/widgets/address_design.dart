@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_app/mainScreens/placed_order_screen.dart';
 
 import '../assistantMethods/address_changer.dart';
 import '../maps/maps.dart';
@@ -162,7 +163,17 @@ class _AddressDesignState extends State<AddressDesign> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PlacedOrderScreen(
+                                  addressID: widget.addressID,
+                                  totalAmount: widget.totalAmount,
+                                  sellerUID: widget.sellerUID,
+                                )),
+                      );
+                    },
                   )
                 : Container(),
           ],
