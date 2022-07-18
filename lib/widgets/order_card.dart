@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../models/items.dart';
 
+import '../mainScreens/order_details_screen.dart';
+
 class OrderCard extends StatelessWidget {
   final int? itemCount;
   final List<DocumentSnapshot>? data;
@@ -20,7 +22,10 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // todo
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (c) => OrderDetailsScreen(orderID: orderID)));
       },
       child: Container(
         decoration: const BoxDecoration(
