@@ -7,6 +7,24 @@ import 'package:users_app/splashScreen/splash_screen.dart';
 import '../global/global.dart';
 import './cart_item_counter.dart';
 
+separateOrderItemIDs(orderIDs) {
+  List<String> separateItemIDsList = [], defaultItemList = [];
+  int i = 0;
+  defaultItemList = List<String>.from(orderIDs);
+
+  for (i; i < defaultItemList.length; i++) {
+    String item = defaultItemList[i].toString();
+    var pos = item.lastIndexOf(':');
+    String getItemId = (pos != -1) ? item.substring(0, pos) : item;
+    print('\nThis is itemID now =' + getItemId);
+    separateItemIDsList.add(getItemId);
+  }
+  print('\nThis is Items List now =');
+  print(separateItemIDsList);
+
+  return separateItemIDsList;
+}
+
 separateItemIDs() {
   List<String> separateItemIDsList = [], defaultItemList = [];
   int i = 0;
@@ -43,6 +61,26 @@ addItemToCart(String? foodItemId, BuildContext context, int itemCounter) {
     Provider.of<CartItemCounter>(context, listen: false)
         .displayCartListItemsNumber();
   });
+}
+
+separateOrderItemQuantities(orderIDs) {
+  List<String> separateItemQuantityList = [];
+  List<String> defaultItemList = [];
+  int i = 1;
+
+  defaultItemList = List<String>.from(orderIDs);
+
+  for (i; i < defaultItemList.length; i++) {
+    String item = defaultItemList[i].toString();
+    List<String> listItemCharacters = item.split(':').toList();
+    var quanNumber = int.parse(listItemCharacters[1].toString());
+    print('\nThis is Quantity Number =' + quanNumber.toString());
+    separateItemQuantityList.add(quanNumber.toString());
+  }
+  print('\nThis is Quantity List now =');
+  print(separateItemQuantityList);
+
+  return separateItemQuantityList;
 }
 
 separateItemQuantities() {

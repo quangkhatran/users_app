@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:users_app/mainScreens/my_orders_screen.dart';
 
 import '../global/global.dart';
 import '../authentication/auth_screen.dart';
+import '../mainScreens/home_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -69,7 +71,10 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => const HomeScreen()));
+                  },
                 ),
                 Divider(
                   height: 10,
@@ -87,7 +92,10 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => MyOrdersScreen()));
+                  },
                 ),
                 Divider(
                   height: 10,

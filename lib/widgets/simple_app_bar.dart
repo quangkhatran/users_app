@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
+  String? title;
   final PreferredSizeWidget? bottom;
 
-  SimpleAppBar({this.bottom});
+  SimpleAppBar({this.bottom, this.title});
 
   @override
   Size get preferredSize => bottom == null
@@ -14,7 +15,7 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: const IconThemeData(color: Colors.white),
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -30,9 +31,9 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      title: const Text(
-        'iFood',
-        style: TextStyle(
+      title: Text(
+        title!,
+        style: const TextStyle(
           fontSize: 45,
           fontFamily: 'Signatra',
         ),
