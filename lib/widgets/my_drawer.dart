@@ -3,6 +3,8 @@ import 'package:users_app/mainScreens/my_orders_screen.dart';
 
 import '../global/global.dart';
 import '../authentication/auth_screen.dart';
+import '../mainScreens/address_screen.dart';
+import '../mainScreens/history_screen.dart';
 import '../mainScreens/home_screen.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -113,7 +115,10 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => HistoryScreen()));
+                  },
                 ),
                 Divider(
                   height: 10,
@@ -149,7 +154,10 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => AddressScreen()));
+                  },
                 ),
                 Divider(
                   height: 10,
