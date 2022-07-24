@@ -6,6 +6,7 @@ import '../authentication/auth_screen.dart';
 import '../mainScreens/address_screen.dart';
 import '../mainScreens/history_screen.dart';
 import '../mainScreens/home_screen.dart';
+import '../mainScreens/search_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -136,7 +137,10 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => SearchScreen()));
+                  },
                 ),
                 Divider(
                   height: 10,
